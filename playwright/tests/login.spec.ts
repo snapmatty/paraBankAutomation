@@ -1,14 +1,12 @@
 import { test, expect } from "../helpers/fixtures";
-import { newUser } from "../helpers/test.data";
+import { baseURL, newUser } from "../helpers/test.data";
 
 test.beforeEach(async ({ loginPage }) => {
-  await loginPage.goto(
-    "https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC"
-  );
+  await loginPage.goto(baseURL);
 });
 
 test.describe("Login", () => {
-  test("should login new user with valid credentials", async ({
+  test("should login newly registered user with valid credentials", async ({
     loginPage,
     registerPage,
     homePage,
@@ -43,6 +41,22 @@ test.describe("Login", () => {
       await loginPage.passwordInput.fill(newUser.password);
       await loginPage.loginButton.click();
       await expect(homePage.body).toContainText("Accounts Overview");
+    });
+  });
+  test("should not login existing user with invalid credentials", async ({
+    loginPage,
+    registerPage,
+    homePage,
+  }) => {
+    await test.step("When the user fills out all the required fields", async () => {
+      await loginPage.userInput.fill(newUser.userName);
+      await loginPage.passwordInput.fill(newUser.password);
+    });
+    await test.step("And clicks on the login button, then the error message should be displayed", async () => {
+      await loginPage.loginButton.click();
+      await expect(homePage.body).toContainText(
+        "The username and password could not be verified."
+      );
     });
   });
 });

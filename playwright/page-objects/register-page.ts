@@ -1,6 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { BasePage } from "./base-page";
-import { newUser } from "../helpers/test.data";
+import { baseURL, newUser } from "../helpers/test.data";
 
 export class RegisterPage extends BasePage {
   readonly firstNameInput: Locator;
@@ -34,7 +34,7 @@ export class RegisterPage extends BasePage {
   }
 
   async registerNewUserAccount() {
-    await this.goto("/register.htm");
+    await this.goto(`${baseURL}/register.htm`);
     await this.firstNameInput.fill(newUser.firstName);
     await this.lastNameInput.fill(newUser.lastName);
     await this.addressInput.fill(newUser.address);

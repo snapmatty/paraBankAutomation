@@ -13,8 +13,6 @@ export class LoginPage extends BasePage {
     this.userInput = page.locator('input[name="username"]');
     this.passwordInput = page.locator('input[name="password"]');
     this.loginButton = page.getByRole("button", { name: "Log in" });
-    this.registerButton = page.getByText("Register");
+    this.registerButton = page.getByRole("link", { name: "Register" });
   }
-
-  
 }

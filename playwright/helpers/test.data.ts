@@ -21,4 +21,7 @@ const newUser = {
     .toString(),
 };
 
-export { newUser };
+const baseURL =
+  "https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC";
+
+export { newUser, baseURL };
